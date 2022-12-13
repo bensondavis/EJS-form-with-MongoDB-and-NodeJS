@@ -4,7 +4,7 @@ async function addStudent(req, res) {
   const { name, course, email, age } = req.body;
   const arr = await studentDataModel.find({ name: name, email: email });
   console.log(arr);
-  if (!arr.length) {
+  if (arr.length === 0) {
     try {
       await studentDataModel.create({
         name: name,
@@ -13,7 +13,7 @@ async function addStudent(req, res) {
         email: email,
       });
     } catch (e) {
-      return res.status(500).send(e.message);
+        return res.render("error", {error: e.message})
     }
     // return res.status(200).send("values stored successfully");
     res.render("submit", {
@@ -22,8 +22,8 @@ async function addStudent(req, res) {
       age: age,
       email: email,
     });
-  }
-  return res.status(300).send("value already exists");
+  } else
+  return res.render("error", {error: "Value already exists!"})
 }
 
 export { addStudent };

@@ -1,6 +1,4 @@
 import express from "express";
-// const express = require('express')
-// const bodyParser = require('body-parser')
 import { init } from "./db/Init";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -28,10 +26,7 @@ app.get('/',(req,res)=>{
   res.render('form')
 })
 
-// app.post("/", addStudent);
-app.post("/", (req,res)=> {
-  addStudent(req, res);
-})
+app.post("/", addStudent);
 
 app.listen(port, () => {
   console.log(`listening to port: ${port}`);
